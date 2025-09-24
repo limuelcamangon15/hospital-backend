@@ -35,6 +35,12 @@ app.get("/hello", (req, res) => {
     });
 });
 
+app.get("/patients", (req, res) => {
+    res.status(200).json({
+        message: "patients 9999999"
+    });
+});
+
 
 
 const PORT = process.env.PORT || 3000;
