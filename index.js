@@ -25,6 +25,12 @@ app.use(express.json());
 //test endpoint
 app.get("/hi", (req, res) => {
     res.status(200).json({
+        message: "hi from backend"
+    });
+});
+
+app.get("/hello", (req, res) => {
+    res.status(200).json({
         message: "hello from backend"
     });
 });
