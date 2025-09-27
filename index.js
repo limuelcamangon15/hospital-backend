@@ -48,10 +48,9 @@ app.get("/patients", (req, res) => {
     });
 });
 
-//adding a patient
+//adding a new patient
 app.post("/add/patient", async (req, res) => {
     try {
-        console.log("bodyyyyy: " + req.body);
 
         const { firstName, lastName, sex, age, contactNumber, address, bloodType } = req.body;
 
@@ -86,6 +85,38 @@ app.post("/add/patient", async (req, res) => {
 
         res.status(500).json({
             error: "Failed to add patient"
+        });
+    }
+});
+
+
+//getting all patients record
+app.get("/get/patients", async (req, res) => {
+    try {
+        const snapShot = await db.collection("patients").get();
+        const patients = [];
+
+        if (!snapShot) {
+            return res.status(400).json({
+                error: "There's a problem retrieving all the patients' data"
+            })
+        }
+
+        snapShot.forEach((doc) => {
+            patients.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+
+        res.status(200).json(patients);
+
+    }
+    catch (error) {
+        console.error("Error getting all the patients", error.message, error.stack);
+
+        res.status(500).json({
+            error: "Failed to retrieve all patients"
         });
     }
 });
