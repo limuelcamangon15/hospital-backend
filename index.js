@@ -105,7 +105,8 @@ app.get("/get/patients", async (req, res) => {
         snapShot.forEach((doc) => {
             patients.push({
                 id: doc.id,
-                ...doc.data()
+                ...doc.data(),
+                createdAt: doc.data().createdAt.toDate().toISOString()
             });
         });
 
