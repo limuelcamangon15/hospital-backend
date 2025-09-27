@@ -29,24 +29,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-//test endpoint
-app.get("/hi", (req, res) => {
-    res.status(200).json({
-        message: "hi from backend"
-    });
-});
-
-app.get("/hello", (req, res) => {
-    res.status(200).json({
-        message: "hello from backend"
-    });
-});
-
-app.get("/patients", (req, res) => {
-    res.status(200).json({
-        message: "patients 9999999"
-    });
-});
 
 //adding a new patient
 app.post("/add/patient", async (req, res) => {
