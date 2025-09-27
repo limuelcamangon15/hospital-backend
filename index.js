@@ -45,6 +45,7 @@ app.get("/patients", (req, res) => {
 //adding a patient
 app.post("/add/patient", async (req, res) => {
     try {
+        console.log("bodyyyyy: " + req.body);
 
         const { firstName, lastName, sex, age, contactNumber, address, bloodType } = req.body;
 
