@@ -82,7 +82,7 @@ app.post("/add/patient", async (req, res) => {
     }
     catch (error) {
 
-        console.error("Error adding patient: ", error);
+        console.error("Error adding patient: ", error.message, error.stack);
 
         res.status(500).json({
             error: "Failed to add patient"
