@@ -15,6 +15,7 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 
+//database
 const db = admin.firestore();
 
 // init express
@@ -39,6 +40,47 @@ app.get("/patients", (req, res) => {
     res.status(200).json({
         message: "patients 9999999"
     });
+});
+
+//adding a patient
+app.post("/add/patient", async (req, res) => {
+    try {
+
+        const { firstName, lastName, sex, age, contactNumber, address, bloodType } = req.body;
+
+        //validation
+        if (!firstName || !lastName || !sex || !age || !contactNumber) {
+            return res.status(400).json({
+                error: "Patient's first name, last name, sex, age, and contact number are required"
+            });
+        }
+
+        //the reference of new patient
+        const docRef = await db.collection("patients").add({
+            firstName: firstName,
+            lastName: lastName,
+            sex: sex,
+            age: age,
+            contactNumber: contactNumber,
+            address: address,
+            bloodType: bloodType,
+            createdAt: new Date()
+        });
+
+        res.status(201).json({
+            message: "Patient added successfully",
+            id: docRef.id
+        });
+
+    }
+    catch (error) {
+
+        console.error("Error adding patient: ", error);
+
+        res.status(500).json({
+            error: "Failed to add patient"
+        });
+    }
 });
 
 
